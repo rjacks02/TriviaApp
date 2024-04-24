@@ -3,31 +3,29 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 
 export default function QandA(){
 
-    const [question, setQuestion] = useState('this is a question');
-    const [answer, setAnswer] = useState('this is an answer');
+    const [trivia, setTrivia] = useState({});
 
     function getQandA(){
+
         fetch('https://the-trivia-api.com/v2/questions')
         .then((response) => response.json())
         .then((json) => {
             final = null
             for (let i = 0; i < 10; i++){
                 check = json[i];
-                if (check.correctAnswer.includes(' ')){
+                if (check.correctAnswer.includes(' ') || check.question.text.includes('these')){
                     continue;
                 }
                 else{
                     final = check;
                 }
             }
-            if (final == null){
+            if (final == null || !isNaN(final.correctAnswer)){
                 getQandA();
             }
             else{
-                setQuestion(final.question.text);
-                setAnswer(final.correctAnswer);
-                console.log({question});
-                console.log({answer});
+                setTrivia({'question': final.question.text, 'answer': final.correctAnswer, 
+                'category': final.category, 'incorrect': final.incorrectAnswers, 'tags': final.tags});
             }
         })
 
@@ -36,12 +34,12 @@ export default function QandA(){
        });
       }
 
-      
+
     return(
         <View>
             <Button title="get it" onPress = {getQandA} />
-            <Text>{question}</Text>
-            <Text>{answer}</Text>
+            <Text>{trivia.question}</Text>
+            <Text>{trivia.answer}</Text>
         </View>
     );
 }
