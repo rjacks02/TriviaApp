@@ -44,9 +44,9 @@ export default function App() {
           value={userAnswer}
           onChangeText={(text) => setUserAnswer(text)}
         />
-        <Button title="Submit" onPress={handleAnswer} />
       </View>
-      {incorrectGuesses >= 3 && <Text style={styles.clueText}>{trivia.incorrect[0]}</Text>}
+      <Button title="Submit" onPress={handleAnswer} />
+      {incorrectGuesses >= 5 && <Text style={styles.clueText}>{trivia.incorrect[0]}</Text>}
       <Score score={score} styles={styles} />
     </View>
   );
