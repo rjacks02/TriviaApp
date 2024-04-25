@@ -8,12 +8,34 @@ export default function App() {
   const [userAnswer, setUserAnswer] = useState('');
   const [incorrectGuesses, setIncorrectGuesses] = useState(0);
   const [score, setScore] = useState(0);
-  const trivia = {
-    question: 'Sample Question',
-    incorrect: ['Incorrect Answer'],
-  };
+  const [trivia, setTrivia] = useState({});
 
   const [fadeIn] = useState(new Animated.Value(0)); // Using react's own animated api!!
+
+  function getQandA(){
+
+    fetch('https://the-trivia-api.com/v2/questions')
+    .then((response) => response.json())
+    .then((json) => {
+        final = null;
+        for (let i = 0; i < 10; i++){
+            check = json[i];
+            if (check.correctAnswer.includes(' ') || check.question.text.includes('these') || !isNaN(check.correctAnswer)){
+                continue;
+            }
+            else{
+                final = check;
+            }
+        }
+        if (final == null){
+            getQandA();
+        }
+        else{
+            setTrivia({'question': final.question.text, 'answer': final.correctAnswer, 
+            'category': final.category, 'incorrect': final.incorrectAnswers, 'tags': final.tags});
+        }
+    })
+  }
 
   useEffect(() => {
     Animated.timing(fadeIn, {
@@ -21,10 +43,11 @@ export default function App() {
       duration: 2000,
       useNativeDriver: true,
     }).start();
+    getQandA();
   }, []);
 
   const handleAnswer = () => {
-    if (userAnswer.toLowerCase() === trivia.incorrect[0].toLowerCase()) {
+    if (userAnswer.toLowerCase() === trivia.answer.toLowerCase()) {
       alert('Correct answer!');
       setScore((prevScore) => prevScore + 1);
     } else {
@@ -46,7 +69,7 @@ export default function App() {
         />
         <Button title="Submit" onPress={handleAnswer} />
       </View>
-      {incorrectGuesses >= 3 && <Text style={styles.clueText}>{trivia.incorrect[0]}</Text>}
+      {incorrectGuesses >= 3 && <Text style={styles.clueText}>{trivia.answer}</Text>}
       <Score score={score} styles={styles} />
     </View>
   );
