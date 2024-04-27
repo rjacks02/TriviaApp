@@ -17,9 +17,9 @@ export default function App() {
     fetch('https://the-trivia-api.com/v2/questions')
     .then((response) => response.json())
     .then((json) => {
-        final = null;
+        let final = null;
         for (let i = 0; i < 10; i++){
-            check = json[i];
+            let check = json[i];
             if (check.correctAnswer.includes(' ') || check.question.text.includes('these') || !isNaN(check.correctAnswer)){
                 continue;
             }
