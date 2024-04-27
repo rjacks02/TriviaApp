@@ -15,16 +15,16 @@ export const styles = StyleSheet.create({
   },
   questionText: {
     fontSize: 20,
-    marginBottom: 30, 
+    marginBottom: 30,
     color: '#555',
   },
   answerInput: {
-    height: 30,
+    height: 40,
     width: 250,
     borderColor: 'gray',
     borderWidth: 1,
-    padding: 12, 
-    marginBottom: 30, 
+    padding: 12,
+    marginBottom: 30,
     fontSize: 16,
   },
   clueText: {
