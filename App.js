@@ -20,7 +20,9 @@ export default function App() {
         let final = null;
         for (let i = 0; i < 10; i++){
             let check = json[i];
-            if (check.correctAnswer.includes(' ') || check.question.text.includes('these') || !isNaN(check.correctAnswer)){
+            if (check.correctAnswer.includes(' ') ||
+                check.question.text.includes('these') ||
+                check.correctAnswer.match(/[A-z]/) == null){
                 continue;
             }
             else{
