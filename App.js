@@ -77,7 +77,7 @@ export default function App() {
                     }
                 }
 
-                if (fallback) {
+                else if (fallback) {
                     output = "The answer is related to, but not: " + cleanText(triviaObject.incorrect[0]);
                 }
                 break
