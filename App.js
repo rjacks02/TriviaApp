@@ -5,6 +5,7 @@ import { Score } from './Score.js';
 
 export default function App() {
     const [userAnswer, setUserAnswer] = useState('');
+    const [guess, setGuess] = useState('');
     const [incorrectGuesses, setIncorrectGuesses] = useState(0);
     const [score, setScore] = useState(0);
     const [trivia, setTrivia] = useState({});
@@ -34,7 +35,7 @@ export default function App() {
                 }
                 else {
                     setTrivia({'question': final.question.text,
-                        'answer': final.correctAnswer,
+                        'answer': final.correctAnswer.trim(),
                         'category': final.category,
                         'incorrect': final.incorrectAnswers,
                         'tags': final.tags});
@@ -77,20 +78,20 @@ export default function App() {
                 }
 
                 if (fallback) {
-                    output = "The answer is related to, but not: " + cleanText(triviaObject.incorrect[2]);
+                    output = "The answer is related to, but not: " + cleanText(triviaObject.incorrect[0]);
                 }
                 break
 
             case 2:
-                output = "The question is: " + cleanText(triviaObject.question);
-                break
-
-            case 3:
                 output = "The answer is related to, but not: " + cleanText(triviaObject.incorrect[0]);
                 break
 
-            case 4:
+            case 3:
                 output = "The answer is related to, but not: " + cleanText(triviaObject.incorrect[1]);
+                break
+
+            case 4:
+                output = "The answer is related to, but not: " + cleanText(triviaObject.incorrect[2]);
                 break
         }
 
@@ -114,6 +115,7 @@ export default function App() {
 
       const input = userAnswer.toLowerCase();
       const answer = trivia.answer.toLowerCase();
+      setGuess('Last Guess: ' + userAnswer);
 
       if (input === answer) {
         // Correct answer
@@ -124,6 +126,8 @@ export default function App() {
         setAnswerBoxes(filledBoxes);
         alert('Correct answer!');
         setScore((prevScore) => prevScore + 1);
+        setIncorrectGuesses(0);
+        setGuess('');
         getQandA(); // Get next question
         
     } else {
@@ -131,12 +135,22 @@ export default function App() {
         let fullyCorrectIndexes = [];
         let partiallyCorrectIndexes = [];
 
+        let letters = [];
+        for (let i = 0; i < answer.length; i++){
+            letters[i] = answer.charAt(i);
+        }
+
         // Compare user input with answer and find fully correct and partially correct letters
         for (let i = 0; i < answer.length; i++) {
             if (input[i] && input[i] === answer[i]) {
                 fullyCorrectIndexes.push(i);
-            } else if (input[i] && answer.includes(input[i]) && !fullyCorrectIndexes.includes(i)) {
+                letters[i] = null;
+            }
+        }
+        for (let i = 0; i < answer.length; i++) {
+            if (input[i] && answer.includes(input[i]) && !fullyCorrectIndexes.includes(i) && letters.includes(input[i])) {
                 partiallyCorrectIndexes.push(i);
+                letters[letters.indexOf(input[i])] = null;
             }
         }
 
@@ -146,6 +160,8 @@ export default function App() {
         if (incorrectGuesses + 1 >= maxIncorrectGuesses) {
             // Maximum number of incorrect guesses reached
             alert(`Sorry, you've reached the maximum number of incorrect guesses. The correct answer was: ${trivia.answer}`);
+            setIncorrectGuesses(0);
+            setGuess('');
             // Reset answer boxes
             const boxes = Array(trivia.answer.length).fill('');
             setAnswerBoxes(boxes);
@@ -195,7 +211,9 @@ export default function App() {
             <Text style={styles.questionText}>{trivia.question}</Text>
             {trivia.answer && ( // Check if trivia.answer defined (debugging error)
                 <>
+                <Text style={styles.answerBoxText}>{guess}</Text>
                     <View style={styles.answerBoxesContainer}>
+
                         {answerBoxes.map((box, index) => (
                             <View key={index} style={styles.answerBox}>
                                 <Text style={styles.answerBoxText}>{box}</Text>
