@@ -7,8 +7,8 @@ export const Score = ({ score }) => {
   const colorIndex = score % rainbowColors.length;
 
   return (
-    <Text style={[styles.score, { color: rainbowColors[colorIndex] }]}>
-      Score: {score}
-    </Text>
+      <Text style={[styles.score, { color: rainbowColors[colorIndex] }]}>
+        Score: {score}
+      </Text>
   );
 };
