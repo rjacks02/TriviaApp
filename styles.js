@@ -76,4 +76,43 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginTop: 20,
     },
+    timer: {
+        fontSize: 18,
+        fontWeight: 'bold', 
+        marginTop: 10, 
+        color: '#333', 
+    },
+    startButton: {
+        backgroundColor: '#FF4500',
+        paddingVertical: 15,
+        paddingHorizontal: 30,
+        borderRadius: 25,
+        elevation: 3,
+        marginBottom: 20,
+        borderBottomWidth: 2, 
+        borderBottomColor: '#333', 
+      },
+    
+      startButtonText: {
+        fontSize: 28,
+        fontWeight: 'bold',
+        color: '#fff',
+        textAlign: 'center',
+      },
+      weltitle: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: 'white',
+        marginBottom: 20,
+      },
+      welbackground: {
+        flex: 1,
+        resizeMode: 'cover',
+        justifyContent: 'center',
+    },
+    welcontainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 });
