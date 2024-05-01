@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button } from 'react-native';
+import {View, TextInput, Button, StyleSheet} from 'react-native';
 
 const AnswerInput = ({ onSubmit }) => {
     const [userAnswer, setUserAnswer] = useState('');
@@ -22,3 +22,10 @@ const AnswerInput = ({ onSubmit }) => {
 };
 
 export default AnswerInput;
+
+const RowStyle = StyleSheet.create({
+    rowWrap: {
+        fontFamily: "RobotoMono-Bold",
+        fontWeight: "bold",
+    }
+});

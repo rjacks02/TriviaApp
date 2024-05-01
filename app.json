@@ -11,6 +11,17 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/RobotoMono-Bold.ttf",
+            "./assets/fonts/RobotoMono-Regular.ttf"
+          ]
+        }
+      ]
+    ],
     "assetBundlePatterns": [
       "**/*"
     ],
