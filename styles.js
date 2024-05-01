@@ -40,12 +40,12 @@ export const styles = StyleSheet.create({
     },
     answerInput: {
         marginBottom: 20,
-        borderWidth: 1, // Add border width
-        borderColor: '#ccc', // Add border color
-        borderRadius: 5, // Add border radius for rounded corners
-        paddingVertical: 10, // Add padding for vertical spacing
-        paddingHorizontal: 15, // Add padding for horizontal spacing
-        width: '100%', // Ensure the input takes up full width
+        borderWidth: 1, 
+        borderColor: '#ccc', 
+        borderRadius: 5, 
+        paddingVertical: 10, 
+        paddingHorizontal: 15, 
+        width: '100%', 
     },
     button: {
         backgroundColor: '#FF4500',
@@ -53,7 +53,7 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 30,
         borderRadius: 25,
         elevation: 3,
-        marginBottom: 20, // Add margin to separate from input
+        marginBottom: 20, 
     },
     buttonText: {
       fontSize: 20,
